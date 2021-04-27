@@ -79,7 +79,7 @@ void MineField::Draw(Graphics& gfx, Vei2& screenPos)
 
 }
 
-MineField::Tile& MineField::tileAt(Vei2& gridPos)
+MineField::Tile& MineField::tileAt(const Vei2& gridPos)
 {
 	return tiles[gridPos.x + gridWidth * gridPos.y];
 }

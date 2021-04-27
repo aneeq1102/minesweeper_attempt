@@ -6,13 +6,13 @@ class MineField
 {
 public:
 	class Tile {
-	
-		enum class State{
-			Hidden,
-			Flagged,
-			Revealed
+		public:
+			enum class State{
+				Hidden,
+				Flagged,
+				Revealed
 		
-		};
+			};
 
 		public:
 			void spawnMine();
@@ -32,7 +32,7 @@ public:
 public:
 	MineField();
 	void Draw(Graphics& gfx, Vei2& screenPos);
-	Tile& tileAt(Vei2& gridPos);
+	Tile& tileAt(const Vei2& gridPos);
 	RectI& getRect(Vei2& topLeft);
 private:
 	int static constexpr gridWidth = 10;
