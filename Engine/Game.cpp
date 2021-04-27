@@ -38,6 +38,22 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
+    while (!wnd.mouse.IsEmpty()) {
+        auto e = wnd.mouse.Read();
+
+        if (e.GetType() == Mouse::Event::Type::LPress) {
+
+            Vei2 mousePos = e.GetPos();
+            field.tileAtMouse(mousePos).Reveal();
+
+        }
+        else if (e.GetType() == Mouse::Event::Type::RPress) {
+
+            Vei2 mousePos = e.GetPos();
+            field.tileAtMouse(mousePos).toggleFlag();
+
+        }
+    }
 }
 
 void Game::ComposeFrame()
