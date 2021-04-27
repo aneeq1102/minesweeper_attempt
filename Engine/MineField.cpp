@@ -12,17 +12,17 @@ void MineField::Tile::Draw(Vei2& screenPos,Graphics& gfx)
 	
 	case State::Hidden:
 		SpriteCodex::DrawTileButton(screenPos, gfx);
-
+		break;
 	case State::Revealed:
 		if (hasMine()) {
 			SpriteCodex::DrawTileBomb(screenPos, gfx);
 			SpriteCodex::DrawTileButton(screenPos, gfx);
 		}
-		
+		break;
 	case State::Flagged:
 		SpriteCodex::DrawTileButton(screenPos, gfx);
 		SpriteCodex::DrawTileFlag(screenPos, gfx);
-
+		break;
 	}
 }
 
@@ -36,7 +36,19 @@ Vei2& MineField::Tile::screenToGrid(Vei2& screenPos)
 	return screenPos / SpriteCodex::tileSize;
 }
 
-Vei2& MineField::Tile::gridToScreen(Vei2& gridPos)
+bool MineField::Tile::hasFlag()
+{
+	if (state == State::Flagged)
+		return true;
+	return false;
+}
+
+void MineField::Tile::toggleFlag()
+{
+	state = State::Flagged;
+}
+
+Vei2& MineField::gridToScreen(Vei2& gridPos)
 {
 	return gridPos * SpriteCodex::tileSize;
 }
@@ -65,12 +77,12 @@ MineField::MineField()
 
 void MineField::Draw(Graphics& gfx, Vei2& screenPos)
 {
-	gfx.DrawRect(getRect(screenPos), SpriteCodex::baseColor);
-	Vei2 gridPos;
+	gfx.DrawRect(getRect(screenPos), SpriteCodex::baseColor);	//drawing gray rect behind
+	
 	Vei2 screenPosTemp;
-	for (Vei2 vect = { 0,0 }; vect.x < gridWidth; vect.x++) {
-		for (vect.y = 0; vect.y < gridHeight; vect.y++) {
-			screenPosTemp = tileAt(gridPos).gridToScreen(vect);
+	for (Vei2 gridPos= { 0,0 }; gridPos.x < gridWidth; gridPos.x++) {
+		for (gridPos.y = 0; gridPos.y < gridHeight; gridPos.y++) {
+			screenPosTemp = gridToScreen(gridPos);
 			tileAt(gridPos).Draw(screenPosTemp, gfx);
 			
 		}
@@ -84,7 +96,7 @@ MineField::Tile& MineField::tileAt(const Vei2& gridPos)
 	return tiles[gridPos.x + gridWidth * gridPos.y];
 }
 
-RectI& MineField::getRect(Vei2& topLeft)
+RectI MineField::getRect(Vei2& topLeft)
 {
-	return RectI(topLeft, dimension, dimension);
+	return RectI(topLeft, SpriteCodex::tileSize * gridWidth, SpriteCodex::tileSize * gridHeight);
 }

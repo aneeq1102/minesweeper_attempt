@@ -4,7 +4,7 @@
 
 class MineField
 {
-public:
+private:
 	class Tile {
 		public:
 			enum class State{
@@ -19,13 +19,14 @@ public:
 			void Draw(Vei2& screenPos,Graphics& gfx);
 			bool hasMine();
 			Vei2& screenToGrid(Vei2& screenPos);
-			Vei2& gridToScreen(Vei2& gridPos);
+			bool hasFlag();
+			void toggleFlag();
 			
 		private:
 			State state = State::Hidden;
 			bool isRevealed = false;
 			bool hasBomb = false;
-		
+			
 	
 	};
 
@@ -33,12 +34,13 @@ public:
 	MineField();
 	void Draw(Graphics& gfx, Vei2& screenPos);
 	Tile& tileAt(const Vei2& gridPos);
-	RectI& getRect(Vei2& topLeft);
+	RectI getRect(Vei2& topLeft);
+	Vei2& gridToScreen(Vei2& gridPos);
 private:
 	int static constexpr gridWidth = 10;
 	int static constexpr gridHeight = 10;
 	Tile tiles[gridWidth * gridHeight];
-	int static constexpr dimension = 500;
+	
 	int static constexpr nMines = 10;
 };
 
