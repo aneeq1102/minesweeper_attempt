@@ -1477,6 +1477,7 @@ void SpriteCodex::DrawTileBombRed( const Vei2& pos,Graphics& gfx )
 
 void SpriteCodex::drawTileNumber(Graphics& gfx, Vei2& screenPos, int tileNumber)
 {
+	assert(tileNumber >= 0 && tileNumber <= 8);
 	switch (tileNumber) {
 	case 0:
 		DrawTile0(screenPos, gfx);

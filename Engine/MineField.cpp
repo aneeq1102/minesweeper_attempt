@@ -1,6 +1,7 @@
 #include "MineField.h"
 #include<random>
 #include "SpriteCodex.h"
+#include <assert.h>
 void MineField::Tile::spawnMine()
 {
 	hasBomb = true;
@@ -39,7 +40,7 @@ bool MineField::Tile::hasMine()
 
 void MineField::Tile::setNeighbourMineCount(int mineCount)
 {
-
+	assert(nNeighbourMines == -1);
 	nNeighbourMines = mineCount;
 
 }

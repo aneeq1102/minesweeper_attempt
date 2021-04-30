@@ -26,7 +26,7 @@ private:
 			
 		private:
 			State state = State::Hidden;
-			int nNeighbourMines;
+			int nNeighbourMines = -1;
 			bool isRevealed = false;
 			bool hasBomb = false;
 			
