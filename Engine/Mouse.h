@@ -70,7 +70,7 @@ public:
 		{
 			return type;
 		}
-		Vei2& GetPos() const
+		Vei2 GetPos() const
 		{
 			return Vei2(x,y);
 		}
@@ -95,7 +95,7 @@ public:
 	Mouse() = default;
 	Mouse( const Mouse& ) = delete;
 	Mouse& operator=( const Mouse& ) = delete;
-	Vei2& GetPos() const;
+	Vei2 GetPos() const;
 	int GetPosX() const;
 	int GetPosY() const;
 	bool LeftIsPressed() const;

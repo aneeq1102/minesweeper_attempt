@@ -20,7 +20,7 @@ void MineField::Tile::Draw(Vei2& screenPos,Graphics& gfx)
 			
 		}
 		else {
-			SpriteCodex::drawTileNumber(gfx, screenPos, nNeighbourMines);		// 2- i want to bypas the need for variable nNeighbourMines and its setterfunction,but i get red squigglies,why?
+			SpriteCodex::drawTileNumber(gfx, screenPos, nNeighbourMines);		
 		}
 		break;
 	case State::Flagged:
@@ -125,7 +125,7 @@ MineField::MineField()
 	
 	for (Vei2 gridPos = { 0,0 }; gridPos.x < gridWidth; gridPos.x++) {
 		for (gridPos.y = 0; gridPos.y < gridHeight; gridPos.y++) {
-			tileAt(gridPos).setNeighbourMineCount(countNeighbourMines(gridPos));	// 1 - So i can call countNeighbourMines from here no problem
+			tileAt(gridPos).setNeighbourMineCount(countNeighbourMines(gridPos));
 		}
 	}
 
@@ -133,7 +133,7 @@ MineField::MineField()
 
 void MineField::Draw(Graphics& gfx, Vei2& screenPos)
 {
-	gfx.DrawRect(getRect(screenPos), SpriteCodex::baseColor);	//drawing gray rect behind
+	gfx.DrawRect(getRect(screenPos), SpriteCodex::baseColor);	
 	
 	Vei2 screenPosTemp;
 	for (Vei2 gridPos= { 0,0 }; gridPos.x < gridWidth; gridPos.x++) {
