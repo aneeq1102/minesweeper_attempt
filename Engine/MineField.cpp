@@ -20,7 +20,7 @@ void MineField::Tile::Draw(Vei2& screenPos,Graphics& gfx)
 			
 		}
 		else {
-			SpriteCodex::drawTileNumber(gfx,screenPos,countNeighbourMines(screenToGrid(screenPos)))		// 2- i want to bypas the need for variable nNeighbourMines and its setterfunction,but i get red squigglies,why?
+			SpriteCodex::drawTileNumber(gfx, screenPos, nNeighbourMines);		// 2- i want to bypas the need for variable nNeighbourMines and its setterfunction,but i get red squigglies,why?
 		}
 		break;
 	case State::Flagged:
@@ -81,8 +81,8 @@ int MineField::countNeighbourMines(Vei2& gridPos)
 	int yStart = std::max(0, gridPos.y - 1);
 	int yEnd = std::min(gridHeight - 1, gridPos.y + 1);
 
-	for (Vei2 gvect = { xStart,yStart }; gvect.x < xEnd; gvect.x++) {
-		for (gvect.y = yStart; gvect.y < yEnd; gvect.y++) {
+	for (Vei2 gvect = { xStart,yStart }; gvect.x <= xEnd; gvect.x++) {
+		for (gvect.y = yStart; gvect.y <= yEnd; gvect.y++) {
 			if (tileAt(gridPos).hasMine()) {
 				count++;
 			}
