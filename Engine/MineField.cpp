@@ -15,12 +15,14 @@ void MineField::Tile::Draw(Vei2& screenPos,Graphics& gfx)
 		SpriteCodex::DrawTileButton(screenPos, gfx);
 		break;
 	case State::Revealed:
-		if (hasMine()) {
-			SpriteCodex::DrawTileBomb(screenPos, gfx);
+		if (!hasMine()) {
+			SpriteCodex::drawTileNumber(gfx, screenPos, nNeighbourMines);
+			
 			
 		}
 		else {
-			SpriteCodex::drawTileNumber(gfx, screenPos, nNeighbourMines);		
+			SpriteCodex::DrawTileBomb(screenPos, gfx);
+		
 		}
 		break;
 	case State::Flagged:
