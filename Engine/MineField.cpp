@@ -64,23 +64,32 @@ bool MineField::Tile::hasFlag()
 	return false;
 }
 
-void MineField::Tile::toggleFlag()
+void MineField::Tile::toggleFlag(MineField& field)
 {
-	if (state == State::Flagged) {
-		state = State::Hidden;
-	}
-	else if (state == State::Hidden) {
-		state = State::Flagged;
+	if (!field.gameIsOver) {
+		if (state == State::Flagged) {
+			state = State::Hidden;
+		}
+		else if (state == State::Hidden) {
+			state = State::Flagged;
+		}
 	}
 }
 
 
-void MineField::Tile::Reveal()
+void MineField::Tile::Reveal(MineField& field)
 {
-	if (!hasFlag()) {
-		state = State::Revealed;
+	if (!field.gameIsOver) {
+		if (!hasFlag()) {
+			if (hasMine())
+				field.gameIsOver = true;
+			state = State::Revealed;
+		}
 	}
 }
+
+
+
 
 
 int MineField::countNeighbourMines(Vei2& gridPos)
@@ -156,7 +165,7 @@ void MineField::Draw(Graphics& gfx, Vei2& screenPos)
 	for (Vei2 gridPos= { 0,0 }; gridPos.x < gridWidth; gridPos.x++) {
 		for (gridPos.y = 0; gridPos.y < gridHeight; gridPos.y++) {
 			screenPosTemp = gridToScreen(gridPos);
-			tileAt(gridPos).Draw(screenPosTemp, gfx);
+			tileAt(gridPos).Draw(screenPosTemp, gfx,gameIsOver);
 			
 		}
 
