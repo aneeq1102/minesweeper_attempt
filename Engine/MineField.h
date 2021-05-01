@@ -16,7 +16,7 @@ private:
 
 		public:
 			void spawnMine();
-			void Draw(Vei2& screenPos,Graphics& gfx);
+			void Draw(Vei2& screenPos,Graphics& gfx,bool gameIsOver);
 			bool hasMine();
 			void setNeighbourMineCount(int mineCount);
 			Vei2& screenToGrid(Vei2& screenPos);
@@ -35,7 +35,7 @@ private:
 
 public:
 	MineField();
-	void Draw(Graphics& gfx, Vei2& screenPos);
+	void Draw(Graphics& gfx, Vei2& screenPos,bool gameIsOver);
 	Tile& tileAt(const Vei2& gridPos);
 	Tile& tileAtMouse(Vei2& screenPos);
 	RectI getRect(Vei2& topLeft);

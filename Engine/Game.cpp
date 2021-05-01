@@ -58,5 +58,5 @@ void Game::UpdateModel()
 
 void Game::ComposeFrame()
 {
-    field.Draw(gfx, Vei2(0, 0));
+    field.Draw(gfx, Vei2(0, 0),);
 }
