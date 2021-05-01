@@ -42,11 +42,13 @@ public:
 	int countNeighbourMines(Vei2& gridPos);
 	Vei2& gridToScreen(Vei2& gridPos);
 	Vei2& screenToGrid(Vei2& screenPos);
+	void onRevealClick(Vei2& screenPos);
+	
 private:
 	int static constexpr gridWidth = 10;
 	int static constexpr gridHeight = 10;
 	Tile tiles[gridWidth * gridHeight];
-	
-	int static constexpr nMines = 10;
+	bool gameIsOver = false;
+	int static constexpr nMines = 25;
 };
 

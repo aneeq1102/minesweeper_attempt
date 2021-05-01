@@ -9,28 +9,31 @@ void MineField::Tile::spawnMine()
 
 void MineField::Tile::Draw(Vei2& screenPos,Graphics& gfx)
 {
-	switch (state) {
 	
-	case State::Hidden:
-		
-		SpriteCodex::DrawTileButton(screenPos, gfx);
-		break;
-	case State::Revealed:
-		if (!hasMine()) {
-			SpriteCodex::drawTileNumber(gfx, screenPos, nNeighbourMines);
-			
-			
+
+		switch (state) {
+
+		case State::Hidden:
+
+			SpriteCodex::DrawTileButton(screenPos, gfx);
+			break;
+		case State::Revealed:
+			if (!hasMine()) {
+				SpriteCodex::drawTileNumber(gfx, screenPos, nNeighbourMines);
+
+
+			}
+			else {
+				SpriteCodex::DrawTileBomb(screenPos, gfx);
+
+			}
+			break;
+		case State::Flagged:
+			SpriteCodex::DrawTileButton(screenPos, gfx);
+			SpriteCodex::DrawTileFlag(screenPos, gfx);
+			break;
 		}
-		else {
-			SpriteCodex::DrawTileBomb(screenPos, gfx);
-		
-		}
-		break;
-	case State::Flagged:
-		SpriteCodex::DrawTileButton(screenPos, gfx);
-		SpriteCodex::DrawTileFlag(screenPos, gfx);
-		break;
-	}
+	
 }
 
 bool MineField::Tile::hasMine()
@@ -86,7 +89,7 @@ int MineField::countNeighbourMines(Vei2& gridPos)
 
 	for (Vei2 gvect = { xStart,yStart }; gvect.x <= xEnd; gvect.x++) {
 		for (gvect.y = yStart; gvect.y <= yEnd; gvect.y++) {
-			if (tileAt(gridPos).hasMine()) {
+			if (tileAt(gvect).hasMine()) {
 				count++;
 			}
 		}
@@ -103,6 +106,13 @@ Vei2& MineField::gridToScreen(Vei2& gridPos)
 Vei2& MineField::screenToGrid(Vei2& screenPos)
 {
 	return screenPos / SpriteCodex::tileSize;
+}
+
+void MineField::onRevealClick(Vei2& screenPos)
+{
+	if (tileAt(screenToGrid(screenPos)).hasMine()) {
+		gameIsOver = true;
+	}
 }
 
 
@@ -126,8 +136,8 @@ MineField::MineField()
 		tileAt(spawnPos).spawnMine();
 	}
 	
-	for (Vei2 gridPos = { 0,0 }; gridPos.x < gridWidth; gridPos.x++) {
-		for (gridPos.y = 0; gridPos.y < gridHeight; gridPos.y++) {
+	for (Vei2 gridPos = { 0,0 }; gridPos.y < gridHeight; gridPos.y++) {
+		for (gridPos.x = 0; gridPos.x < gridWidth; gridPos.x++) {
 			tileAt(gridPos).setNeighbourMineCount(countNeighbourMines(gridPos));
 		}
 	}
