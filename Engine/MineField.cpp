@@ -35,6 +35,45 @@ void MineField::Tile::Draw(Vei2& screenPos,Graphics& gfx,bool gameIsOver)
 			break;
 		}
 	}
+	else
+	{
+		switch (state)
+		{
+
+		case State::Hidden:
+
+			if (hasMine()) {
+				SpriteCodex::DrawTileBomb(screenPos, gfx);
+			}
+			else {
+				SpriteCodex::drawTileNumber(gfx, screenPos, nNeighbourMines);
+			}
+			break;
+		case State::Revealed:
+			if (!hasMine()) {
+				SpriteCodex::drawTileNumber(gfx, screenPos, nNeighbourMines);
+
+
+			}
+			else {
+				SpriteCodex::DrawTileBomb(screenPos, gfx);
+
+			}
+			break;
+		case State::Flagged:
+			if (hasMine()) {
+				SpriteCodex::DrawTileFlag(screenPos, gfx);
+			}
+			else {
+				SpriteCodex::DrawTileFlag(screenPos, gfx);
+				SpriteCodex::DrawTileCross(screenPos, gfx);
+			}
+
+			break;
+		}
+
+		
+	}
 	
 	
 	
@@ -87,10 +126,6 @@ void MineField::Tile::Reveal(MineField& field)
 		}
 	}
 }
-
-
-
-
 
 int MineField::countNeighbourMines(Vei2& gridPos)
 {
