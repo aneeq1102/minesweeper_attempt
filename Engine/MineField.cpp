@@ -9,10 +9,9 @@ void MineField::Tile::spawnMine()
 
 void MineField::Tile::Draw(Vei2& screenPos,Graphics& gfx,bool gameIsOver)
 {
-	if (!gameIsOver) 
-	{
-
-		switch (state) 
+	 
+	if (!gameIsOver) {
+		switch (state)
 		{
 
 		case State::Hidden:
@@ -149,7 +148,7 @@ MineField::MineField()
 
 }
 
-void MineField::Draw(Graphics& gfx, Vei2& screenPos,bool gameIsOver)
+void MineField::Draw(Graphics& gfx, Vei2& screenPos)
 {
 	gfx.DrawRect(getRect(screenPos), SpriteCodex::baseColor);	
 	
@@ -157,7 +156,7 @@ void MineField::Draw(Graphics& gfx, Vei2& screenPos,bool gameIsOver)
 	for (Vei2 gridPos= { 0,0 }; gridPos.x < gridWidth; gridPos.x++) {
 		for (gridPos.y = 0; gridPos.y < gridHeight; gridPos.y++) {
 			screenPosTemp = gridToScreen(gridPos);
-			tileAt(gridPos).Draw(screenPosTemp, gfx,gameIsOver);
+			tileAt(gridPos).Draw(screenPosTemp, gfx);
 			
 		}
 

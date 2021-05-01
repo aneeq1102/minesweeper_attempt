@@ -16,7 +16,7 @@ private:
 
 		public:
 			void spawnMine();
-			void Draw(Vei2& screenPos,Graphics& gfx,bool gameIsOver);
+			void Draw(Vei2& screenPos,Graphics& gfx);
 			bool hasMine();
 			void setNeighbourMineCount(int mineCount);
 			Vei2& screenToGrid(Vei2& screenPos);
